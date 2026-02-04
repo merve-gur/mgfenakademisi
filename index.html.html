@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Fen Akademisi | Kişisel Eğitim Rehberi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
+        .gradient-hero { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #f97316 100%); }
+        .q-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border-left: 8px solid #f97316; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .option-btn { transition: all 0.2s; border: 2px solid #e2e8f0; cursor: pointer; font-size: 11px; font-weight: 700; padding: 12px 8px; border-radius: 15px; text-align: center; }
+        .option-btn.selected { background: #f97316 !important; border-color: #f97316 !important; color: white !important; transform: scale(1.02); }
+        .progress-bar { background: linear-gradient(90deg, #1e40af, #f97316); transition: width 0.3s ease; }
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .page-break { page-break-before: always; padding-top: 30px; }
+            .print-card { border: 1px solid #eee !important; margin-bottom: 20px !important; break-inside: avoid; border-radius: 20px; padding: 20px; }
+            .mg-header { display: block !important; text-align: center; font-weight: 900; color: #1e3a8a; border-bottom: 2px solid #f97316; margin-bottom: 20px; }
+        }
+        .mg-header { display: none; }
+    </style>
+</head>
+<body class="h-full overflow-auto">
+
+<div id="app" class="w-full min-h-full">
+    
+    <section id="home-section" class="min-h-screen no-print pb-20">
+        <div class="gradient-hero text-white py-16 px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tighter uppercase">MG FEN AKADEMİSİ 🚀</h1>
+            <p class="text-2xl opacity-90 italic">"Kendini Keşfet, Fen Dersinde Fark Yarat!"</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 -mt-12">
+            <div class="bg-white rounded-[40px] shadow-2xl p-8 border-b-[12px] border-orange-500 mb-10">
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="bg-blue-50 p-8 rounded-[35px] shadow-inner">
+                        <h3 class="text-3xl font-bold text-blue-900 mb-6">👋 Başlayalım!</h3>
+                        <input type="text" id="std-name" placeholder="Adın Soyadın ✨" class="w-full px-6 py-4 rounded-2xl border-2 border-gray-200 focus:border-orange-500 outline-none font-bold text-lg mb-6">
+                        <label class="block text-sm font-black text-gray-500 mb-3 uppercase ml-2">Kaçıncı Sınıfsın? 🎓</label>
+                        <div class="grid grid-cols-4 gap-3 mb-8">
+                            <button onclick="pickGrade('5')" class="grade-btn border-4 border-white bg-white py-4 rounded-2xl font-black text-xl hover:shadow-md transition-all">5</button>
+                            <button onclick="pickGrade('6')" class="grade-btn border-4 border-white bg-white py-4 rounded-2xl font-black text-xl hover:shadow-md transition-all">6</button>
+                            <button onclick="pickGrade('7')" class="grade-btn border-4 border-white bg-white py-4 rounded-2xl font-black text-xl hover:shadow-md transition-all">7</button>
+                            <button onclick="pickGrade('8')" class="grade-btn border-4 border-white bg-white py-4 rounded-2xl font-black text-xl hover:shadow-md transition-all">8</button>
+                        </div>
+                        <button onclick="startApp()" class="w-full bg-orange-500 text-white font-black py-6 rounded-3xl text-2xl shadow-xl hover:bg-orange-600 active:scale-95 transition-all uppercase">TESTE BAŞLA 🏁</button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-slate-50 p-8 rounded-[35px] border-2 border-dashed border-blue-200">
+                            <h4 class="font-black text-blue-900 mb-4 text-xl flex items-center gap-2">📋 Test Talimatları</h4>
+                            <div class="space-y-6 text-sm font-bold text-gray-600">
+                                <div class="flex gap-4">
+                                    <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</span>
+                                    <p><span class="text-blue-900">İçgüdülerini Takip Et:</span> İlk aklınıza gelen cevabı seçin. Çok düşünmeyin.</p>
+                                </div>
+                                <div class="flex gap-4">
+                                    <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</span>
+                                    <p><span class="text-blue-900">Dürüst Olun:</span> Olmak istediğiniz değil, olduğunuz gibi cevap verin.</p>
+                                </div>
+                                <div class="flex gap-4">
+                                    <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</span>
+                                    <p><span class="text-blue-900">Hepsini Cevaplayın:</span> En doğru sonuç için 55 sorunun hepsini yanıtlayın.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 p-6 rounded-3xl border-l-8 border-yellow-400 text-xs font-bold text-yellow-800 italic">
+                            ⚠️ Önemli: Bu test sadece eğitim amaçlıdır ve klinik/terapötik değildir. Sonuçlar öğrenme sürecinizi kişiselleştirmek için kullanılacaktır.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-[35px] shadow-xl border-t-8 border-blue-500">
+                    <h4 class="text-xl font-black text-blue-900 mb-4 flex items-center gap-2">🎯 Nasıl Öğreniyorsun?</h4>
+                    <ul class="text-xs space-y-2 text-gray-600 font-bold">
+                        <li class="flex items-center gap-2">👁️ <b>Görsel:</b> Şemalar, grafikler ve resimlerle.</li>
+                        <li class="flex items-center gap-2">👂 <b>İşitsel:</b> Dinleyerek ve tartışarak.</li>
+                        <li class="flex items-center gap-2">🛠️ <b>Yaparak:</b> Deneyler ve pratik uygulamalarla.</li>
+                        <li class="flex items-center gap-2">📖 <b>Okuyarak:</b> Metinlerden notlar çıkararak.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-[35px] shadow-xl border-t-8 border-orange-500">
+                    <h4 class="text-xl font-black text-orange-900 mb-4 flex items-center gap-2">💡 Nasıl Motive Oluyorsun?</h4>
+                    <ul class="text-xs space-y-2 text-gray-600 font-bold">
+                        <li>🎯 <b>Hedef:</b> Net hedefler koyduğunda motive olursun.</li>
+                        <li>🤔 <b>Merak:</b> "Bu nasıl çalışıyor?" sorusu senin kaynağın.</li>
+                        <li>👥 <b>İşbirliği:</b> Arkadaşlarınla çalışmak seni hızlandırır.</li>
+                        <li>🏆 <b>Başarı:</b> İyi notlar ve takdir seni ileriye taşır.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-[35px] shadow-xl border-t-8 border-green-500">
+                    <h4 class="text-xl font-black text-green-900 mb-4 flex items-center gap-2">🔬 Hangi Araçlar Uygun?</h4>
+                    <ul class="text-xs space-y-2 text-gray-600 font-bold">
+                        <li>🧪 <b>Simülasyonlar:</b> PhET gibi sanal deney araçları.</li>
+                        <li>📹 <b>Video Dersler:</b> Animasyonlu konu anlatımları.</li>
+                        <li>🎮 <b>Oyunlaştırma:</b> Kahoot ve Quizizz yarışmaları.</li>
+                        <li>🧬 <b>Sanal Deneyler:</b> Güvenli online laboratuvarlar.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-10 bg-indigo-900 text-white p-10 rounded-[45px] shadow-2xl">
+                <h3 class="text-3xl font-black mb-8 text-center uppercase tracking-widest underline decoration-orange-500">📊 Bu Test Sonucunda Öğreneceksin</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm font-bold">
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>Fen dersinde güçlü ve zayıf yönlerini</p></div>
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>Birebir mi grup dersi mi sana uygun?</p></div>
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>Hangi dijital araçlar öğrenmeni hızlandırır?</p></div>
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>Günlük çalışma rutinin nasıl olmalı?</p></div>
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>Derse nasıl motive kalırsın?</p></div>
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>Öğretmenin sana nasıl yaklaşmalı?</p></div>
+                    <div class="flex gap-3 items-start"><span class="text-orange-400 text-xl">✓</span> <p>MG FEN koçundan nasıl destek almalısın?</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz-section" class="hidden max-w-4xl mx-auto p-4 md:p-10 no-print">
+        <div class="sticky top-0 bg-gray-50/95 py-6 z-50 rounded-b-3xl">
+            <div class="flex justify-between font-black text-blue-800 text-sm mb-2 px-2">
+                <span id="prog-text">Bölüm 1 / 11</span>
+                <span id="prog-pct" class="text-orange-600 text-lg">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 h-4 rounded-full overflow-hidden shadow-inner">
+                <div id="prog-bar" class="progress-bar h-full w-0"></div>
+            </div>
+        </div>
+        <div id="q-container" class="mt-8 space-y-6"></div>
+        <div class="flex justify-between mt-12 pb-20">
+            <button onclick="prevStep()" id="back-btn" class="px-10 py-4 bg-gray-200 text-gray-700 rounded-2xl font-black uppercase tracking-widest">← GERİ</button>
+            <button onclick="nextStep()" id="next-btn" class="px-16 py-4 bg-orange-500 text-white rounded-2xl font-black shadow-2xl hover:bg-orange-600 transition-all uppercase tracking-widest">Sonraki ADIM →</button>
+        </div>
+    </section>
+
+    <section id="res-section" class="hidden max-w-6xl mx-auto p-6">
+        <div id="print-area">
+            
+            <div class="bg-white rounded-[45px] shadow-2xl p-12 border-t-[25px] border-orange-500 mb-10 print-card">
+                <div class="mg-header">MG FEN AKADEMİSİ KİŞİSEL ANALİZ RAPORU</div>
+                <div class="text-center mb-10">
+                    <h1 class="text-5xl font-black text-blue-900 mb-2 uppercase tracking-tighter italic">TEBRİKLER <span id="r-name"></span>!</h1>
+                    <p class="text-xl font-bold text-gray-400">Fen Öğrenme Profilin Başarıyla Hazırlandı! 🔬✨</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-12 bg-blue-50 p-10 rounded-[50px] mb-10 border-4 border-blue-100">
+                    <div id="r-icon" class="text-[150px]"></div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-black text-blue-900 uppercase tracking-widest mb-2">Süper Güç Profilin:</h3>
+                        <h2 id="r-profile" class="text-5xl font-black text-orange-600 mb-4 underline decoration-blue-500 decoration-8 underline-offset-12"></h2>
+                        <p id="r-wing" class="text-xl font-bold text-blue-700 italic bg-white inline-block px-4 py-1 rounded-full shadow-sm"></p>
+                        <div id="r-profile-summary" class="mt-6 text-sm font-bold text-gray-600 leading-relaxed"></div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-green-50 p-8 rounded-[35px] border-l-[12px] border-green-500">
+                        <h4 class="font-black text-green-700 mb-4 uppercase text-sm tracking-widest flex items-center gap-2">💪 Güçlü Yönlerin</h4>
+                        <ul id="r-strengths" class="text-sm font-bold text-gray-700 space-y-3"></ul>
+                    </div>
+                    <div class="bg-red-50 p-8 rounded-[35px] border-l-[12px] border-red-500">
+                        <h4 class="font-black text-red-700 mb-4 uppercase text-sm tracking-widest flex items-center gap-2">⚠️ Dikkat Etmen Gerekenler</h4>
+                        <ul id="r-warnings" class="text-sm font-bold text-gray-700 space-y-3"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-break bg-white rounded-[45px] shadow-2xl p-12 border-t-[25px] border-blue-600 mb-10 print-card">
+                <div class="mg-header">MG FEN AKADEMİSİ STRATEJİ REHBERİ</div>
+                <h3 class="text-4xl font-black text-blue-900 mb-10 border-b-8 border-blue-100 pb-4 italic">Sana Özel Fen Stratejileri 📚</h3>
+                
+                <div class="grid md:grid-cols-2 gap-10 mb-10">
+                    <div class="space-y-8">
+                        <div class="bg-slate-100 p-8 rounded-[40px]">
+                            <h4 class="font-black text-blue-800 mb-4 flex items-center gap-2 text-lg">💻 Ders Modeli Önerim</h4>
+                            <p id="r-model" class="text-sm font-bold text-gray-700 leading-loose italic"></p>
+                            <div id="r-model-score" class="mt-4 text-xs font-black bg-blue-200 text-blue-800 px-4 py-2 rounded-full inline-block"></div>
+                        </div>
+                        <div class="bg-orange-50 p-8 rounded-[40px] border-2 border-orange-100">
+                            <h4 class="font-black text-orange-800 mb-4 text-lg uppercase tracking-widest">🖥️ En Etkili Dijital Araçlar</h4>
+                            <div id="r-digital" class="grid gap-3"></div>
+                            <div id="r-digital-score" class="mt-6 text-xs font-black text-orange-700 border-t pt-4"></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800 text-white p-10 rounded-[50px] shadow-2xl">
+                        <h4 class="text-3xl font-black mb-8 flex items-center gap-4 underline underline-offset-12 decoration-orange-500">⏰ Kişisel Çalışma Rutinin</h4>
+                        <div id="r-routine" class="space-y-6 text-sm"></div>
+                        <div class="mt-12 bg-white/10 p-6 rounded-3xl border border-white/20">
+                            <p class="text-xs font-black uppercase text-orange-400 mb-2">💡 Dikkat Dağılınca:</p>
+                            <p class="text-xs font-bold opacity-80 leading-relaxed italic">5 dakika mola ver, su iç, pencereden dışarı bak. Sonra hedefini hatırla ve devam et. Mükemmel olmak zorunda değilsin, ilerleme önemli!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-break bg-white rounded-[45px] shadow-2xl p-12 border-t-[25px] border-green-600 mb-10 print-card">
+                <div class="mg-header">MG FEN AKADEMİSİ EĞİTMEN & REHBERLİK NOTLARI</div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-3xl font-black text-green-800 mb-8 flex items-center gap-3">💪 Sana Özel Motivasyon Notların</h3>
+                        <div id="r-mottos" class="space-y-4"></div>
+                    </div>
+                    <div class="bg-purple-50 p-10 rounded-[50px] border-4 border-purple-100 shadow-sm">
+                        <h3 class="text-3xl font-black text-purple-900 mb-8 flex items-center gap-3 uppercase tracking-tighter italic">👩‍🏫 Öğretmene Not</h3>
+                        <div id="r-teacher" class="text-sm font-bold text-gray-700 space-y-6 leading-relaxed"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-break bg-white rounded-[45px] shadow-2xl p-12 border-t-[25px] border-indigo-900 mb-10 print-card">
+                <div class="mg-header">MG FEN AKADEMİSİ KOÇLUK DESTEK PAKETİ</div>
+                <h2 class="text-4xl font-black text-indigo-900 mb-12 text-center uppercase italic tracking-tighter">🎓 MG FEN Koçundan Akademik Destek</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-indigo-50 p-8 rounded-[40px] border border-indigo-100">
+                        <h4 class="text-xl font-black text-indigo-900 mb-4 flex items-center gap-3">🎯 Senin İçin Özel Destek Paketi</h4>
+                        <ul class="space-y-6">
+                            <li class="flex gap-4">
+                                <span class="text-3xl">📅</span>
+                                <div><p class="font-black text-sm text-indigo-900">Haftalık Destek</p><p class="text-xs font-bold text-gray-500">Haftalık planlama ve disiplinli takip desteği.</p></div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="text-3xl">📑</span>
+                                <div><p class="font-black text-sm text-indigo-900">Özel Materyaller</p><p class="text-xs font-bold text-gray-500">Öğrenme tipine uygun düzenli not alma şablonları.</p></div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="text-3xl">📊</span>
+                                <div><p class="font-black text-sm text-indigo-900">İlerleme Takibi</p><p class="text-xs font-bold text-gray-500">İlerleme grafikleri ve periyodik hedef takibi.</p></div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="text-3xl">⭐</span>
+                                <div><p class="font-black text-sm text-indigo-900">Özel Çalışma</p><p class="text-xs font-bold text-gray-500">Mükemmeliyetçilik ve kaygı yönetimi teknikleri.</p></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-[40px] border border-gray-200">
+                        <h4 class="text-xl font-black text-slate-800 mb-6 uppercase tracking-widest border-b pb-2">📊 Puan Dağılımın</h4>
+                        <div id="r-puan-list" class="space-y-3"></div>
+                        <p class="mt-8 text-[10px] font-bold text-gray-400 italic">Puanlar senin baskın öğrenme eğilimlerini gösteriyor. En yüksek puan senin ana tarzındır!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-break bg-white rounded-[45px] shadow-2xl p-12 border-t-[25px] border-blue-900 mb-10 print-card">
+                <div class="mg-header">MG FEN AKADEMİSİ EĞİTİM KILAVUZU</div>
+                <h3 class="text-3xl font-black text-blue-900 mb-10 text-center border-b-4 border-blue-50 pb-4 uppercase">📘 Fen Öğrenme Karakterleri Kılavuzu</h3>
+                <div id="guide-grid" class="grid md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <div class="page-break bg-white rounded-[45px] shadow-2xl p-12 border-t-[25px] border-orange-600 print-card text-center">
+                <div class="mg-header">MG FEN AKADEMİSİ İLETİŞİM</div>
+                <div class="text-9xl mb-10">📞</div>
+                <h2 class="text-4xl font-black text-blue-900 mb-6 uppercase">İletişim ve Destek</h2>
+                <p class="text-xl font-bold text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">MG FEN Akademisi koçun seninle bire bir ilgilenecek. Öğrenme stiline uygun kişiselleştirilmiş destek alacaksın.</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                    <div class="bg-green-50 p-6 rounded-3xl font-black text-green-700 shadow-sm uppercase tracking-tighter text-sm">📱 WhatsApp Destek</div>
+                    <div class="bg-blue-50 p-6 rounded-3xl font-black text-blue-700 shadow-sm uppercase tracking-tighter text-sm">🎥 Online Görüşme</div>
+                    <div class="bg-orange-50 p-6 rounded-3xl font-black text-orange-700 shadow-sm uppercase tracking-tighter text-sm">📝 Haftalık Rapor</div>
+                    <div class="bg-indigo-50 p-6 rounded-3xl font-black text-indigo-700 shadow-sm uppercase tracking-tighter text-sm">🎯 Kişisel Plan</div>
+                </div>
+
+                <div class="border-t-4 border-gray-100 pt-10 flex flex-col md:flex-row justify-between items-center opacity-50 font-black text-[10px] uppercase tracking-widest">
+                    <p>Rapor No: #MGFEN-2026-ANALİZ</p>
+                    <p>Test Tarihi: <span id="r-date"></span></p>
+                    <p>© MG Fen Akademisi Eğitim Çözümleri</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-print mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
+            <button onclick="window.print()" class="bg-green-600 text-white py-6 rounded-[30px] font-black text-2xl shadow-2xl hover:bg-green-700 transition-all uppercase tracking-tighter">📄 SONUCU PDF SAKLA</button>
+            <button onclick="location.reload()" class="bg-gray-200 py-6 rounded-[30px] font-bold text-gray-500 uppercase tracking-widest text-sm">🔄 TESTİ SIFIRLA</button>
+        </div>
+    </section>
+</div>
+
+<script>
+    const tipDetails = {
+        1: { name: "Düzenli ve Titiz", icon: "📓", strengths: ["Disiplinli çalışma", "Detaylara gösterdiğin özen", "Planlı ve kurallı ilerleme"], warnings: ["Bazen aşırı mükemmeliyetçi olabilirsin", "Küçük hatalardan dolayı stres yapabilirsin"], model: "Grup dersleri sana daha uygun görünüyor. Arkadaşlarınla birlikte öğrenmek seni motive edecektir. Kamerası açık derslerde disiplinli hissedersin!", digital: ["PhET Simülasyonları", "Animasyonlu Konu Anlatımı", "Sanal Laboratuvar"], routine: ["40-50 dk Günlük Fen Çalışması", "%60 Konu Öğrenme - %40 Soru Çözme", "Ders öncesi ön okuma", "Ders sonrası not düzenleme"], mottos: ["Her adım bir ilerleme, mükemmellik değil tutarlılık getirir.", "Hatalar öğrenmenin bir parçasıdır - onlarla öğren.", "Düzenli çalışman seni çok ileri götürecek."], teacher: "👋 Yaklaşım Tarzı: Düzen ve yapıya ihtiyaç duyuyor. Net kurallar, planlı ilerleme sağlayın. Hatalarını nazikçe ele alın - eleştirel olmaktan kaçının. 'İyi ama geliştirirsen mükemmel olur' deyin.", guide: "Titiz, planlı ve mükemmeliyetçi öğrenici." },
+        2: { name: "Yardımsever ve İlişki Odaklı", icon: "🤝", strengths: ["İşbirliğine yatkınlık", "Anlatarak öğrenme (Akran öğretimi)", "Yüksek motivasyon"], warnings: ["Başkalarına odaklanırken kendini unutma", "Bireysel çalışmada çabuk sıkılma"], model: "Kesinlikle grup dersleri! Arkadaşlarınla birlikte öğrenmek seni motive eder. İletişim senin için başarının anahtarıdır.", digital: ["Grup Quiz Platformları", "Zoom Etkileşimli Odalar", "İşbirlikli Padlet"], routine: ["35-45 dk Günlük Fen Çalışması", "Öğrendiğini bir arkadaşına anlat", "Haftalık online çalışma grubu oluştur", "Sesli konu tekrarları"], mottos: ["Bilgi paylaştıkça çoğalır.", "Yardım ederken öğrenirsin.", "Birlikte daha güçlüyüz!"], teacher: "👋 Yaklaşım Tarzı: Sosyal onay bekler. Grup projelerine ağırlık verin. Takdir edin ve peer teaching (akran öğretimi) fırsatları yaratın.", guide: "İlişki odaklı, birlikte öğrenen." },
+        3: { name: "Hedef Odaklı ve Rekabetçi", icon: "🏆", strengths: ["Hızlı kavrama", "Sonuç ve puan odaklılık", "Yüksek verimlilik"], warnings: ["Süreçten çok sonuca odaklanma", "Başarısızlık hissiyle motivasyon kaybı"], model: "Rekabetçi grup dersleri! Yarış, puan ve başarı sıralaması olduğunda enerjin iki katına çıkar.", digital: ["Quizizz Hız Yarışmaları", "Khan Academy Rozetleri", "Başarı Takip Grafikleri"], routine: ["30-40 dk Günlük Fen Çalışması", "Zaman tutarak test çözümü", "Haftalık başarı takibi", "Kısa süreli yoğun odaklanma"], mottos: ["Zirve seni bekliyor!", "Hızın senin süper gücün.", "Bugünün galibi sensin!"], teacher: "👋 Yaklaşım Tarzı: Net hedefler koyun. Başarılarını sınıfta duyurun. İlerleme grafiklerini paylaşın. Zorlu projeler önerin.", guide: "Başarı yönelimli, rekabetçi." },
+        4: { name: "Yaratıcı ve Özgün", icon: "🎨", strengths: ["Derin hayal gücü", "Görsel materyal tasarımı", "Özgün öğrenme yolları"], warnings: ["Rutinlerden çabuk sıkılma", "Duygusal iniş çıkışlarda kopma"], model: "Kendi hızında ilerleyebileceğin özel dersler. Fen ve sanatı birleştiren projeler seni derse bağlar.", digital: ["Canva Tasarımları", "Zihin Haritası Araçları", "Fen Belgeselleri"], routine: ["Esnek süreli çalışma", "Renkli zihin haritaları", "Konuyu hikayeleştirme", "Kendi fen defterini tasarlama"], mottos: ["Sen eşsizsin, tarzın da öyle!", "Hayal gücü bilgiden değerlidir.", "Kendi yolunu çiz."], teacher: "👋 Yaklaşım Tarzı: Yaratıcılık alanı tanıyın. Görsel ve estetik materyaller kullanın. Duygusal bağ kurun.", guide: "Özgün, hayal gücü güçlü." },
+        5: { name: "Araştırmacı ve Analitik", icon: "🔍", strengths: ["Derin odaklanma", "Neden-sonuç analizi", "Mantıksal çıkarım gücü"], warnings: ["Sosyal kopukluk", "Teoride boğulup pratiği unutma"], model: "Derinlemesine teknik dersler. Tek başına, sessiz ve sorgulayabileceğin bir ortamda en iyi öğrenirsin.", digital: ["Wolfram Alpha", "Bilimsel Makale Taramaları", "PhET Derin Simülasyonlar"], routine: ["50-60 dk Derin Odak Blokları", "Analiz ve şema çizimi", "Bağımsız araştırma saati", "Neden-sonuç tabloları"], mottos: ["Bilgi en büyük güçtür!", "Sorgula, keşfet, öğren.", "Mantığın gücü hatayı yener."], teacher: "👋 Yaklaşım Tarzı: Derin sorular sormasına izin verin. Kaynak çeşitliliği sunun. Bağımsızlığına saygı duyun.", guide: "Analitik, derinlemesine öğrenen." },
+        6: { name: "Güvenilir ve Tutarlı", icon: "🛡️", strengths: ["Sorumluluk bilinci", "Sadakat ve hazırlık", "Risk yönetimi"], warnings: ["Belirsiz durumlarda kaygı", "Hata yapma korkusuyla duraksama"], model: "Güven duyduğun bir öğretmenle düzenli takip dersleri. Net bir program seni rahatlatır.", digital: ["EBA Güvenli İçerikler", "Konu Takip Çizelgeleri", "Kontrol Listeleri"], routine: ["30-40 dk Günlük Fen Çalışması", "Günlük sabit tekrar saati", "Kazanım odaklı soru çözümü", "Haftalık planlama saati"], mottos: ["Planlı olan kazanır.", "Güven başarının temelidir.", "Adım adım güvenle..."], teacher: "👋 Yaklaşım Tarzı: Net beklentiler oluşturun. Adım adım yönerge verin. Destekleyici ve güven verici olun.", guide: "Tutarlı, destekle güçlenen." },
+        7: { name: "Enerjik ve Coşkulu", icon: "🚀", strengths: ["Hızlı öğrenme", "Yüksek iyimserlik", "Çok yönlü bakış açısı"], warnings: ["Odaklanma süresi kısalığı", "Yarım bırakma eğilimi"], model: "Dinamik, oyunlaştırılmış ve esprili grup dersleri. Sıkılmaman için tempo yüksek olmalı.", digital: ["TikTok Bilim Videoları", "Kahoot Yarışmaları", "Etkileşimli Oyunlar"], routine: ["20 dk Pomodoro Seansları", "Konu geçişleri yaparak çalışma", "Oyunlaştırılmış tekrarlar", "Hareketli molalar"], mottos: ["Öğrenmek bir maceradır!", "Enerjinle dünyayı değiştir.", "Gülümse ve başar!"], teacher: "👋 Yaklaşım Tarzı: Dersleri hareketli tutun. Eğlenceli unsurlar ekleyin. Odaklanmasını pekiştirmek için molalar verin.", guide: "Coşkulu, çeşitlilik seven." },
+        8: { name: "Kararlı ve Güçlü", icon: "💪", strengths: ["Liderlik", "Meydan okuma", "Dayanıklılık"], warnings: ["Aşırı kontrol isteği", "Zayıflık gösterme korkusu"], model: "Liderlik yapabileceği gruplar veya güçlü bir eğitmenle birebir. Zor sorular seni motive eder.", digital: ["Zor Seviye Soru Bankaları", "Strateji Yazılımları", "Simülasyonlar"], routine: ["40-50 dk Yoğun Çalışma", "Zor seviye yeni nesil sorular", "Kendi programını yönetme", "Meydan okuyan hedefler"], mottos: ["Güç bilgiden gelir!", "Asla pes etme.", "Zorluklar seni güçlendirir."], teacher: "👋 Yaklaşım Tarzı: Ona seçim hakkı tanıyın. Doğrudan ve dürüst olun. Liderlik rolleri verin.", guide: "Güçlü, meydan okumayı seven." },
+        9: { name: "Uyumlu ve Sakin", icon: "☮️", strengths: ["Sabır", "Uyum sağlama", "Geniş perspektif"], warnings: ["Harekete geçmede gecikme", "Baskı altında donma"], model: "Sakin ve baskısız bir online ortam. Acele ettirilmeden, kendi hızında ilerleyebileceğin ders istersin.", digital: ["Lofi Çalışma Müzikleri", "Rahatlatıcı Videolar", "Adım Adım Dersler"], routine: ["30 dk Sakin Çalışma", "Huzurlu çalışma alanı", "Düzenli mini tekrarlar", "Yavaş ve emin adımlar"], mottos: ["Sakinlik en büyük zekadır.", "Huzurla öğren, kalıcı olsun.", "Yavaş ama emin adımlarla!"], teacher: "👋 Yaklaşım Tarzı: Baskı yapmaktan kaçının. Nazikçe teşvik edin. Fikirlerini sormak için zaman tanıyın.", guide: "Sakin, dengeli öğrenen." }
+    };
+
+    const allQuestions = [
+        { q: "Fen çalışırken hata bulup düzeltmek beni rahatlatır. 🔍", t: 1 },
+        { q: "Ödevimi 'doğru ve eksiksiz' yapmadan içim rahat etmez. ✅", t: 1 },
+        { q: "Fen dersinde kuralları ve düzeni severim. 📏", t: 1 },
+        { q: "Öğretmenim beni takdir edince daha çok motive olurum. 👏", t: 2 },
+        { q: "Fen çalışırken arkadaşlarıma yardım etmeyi severim. 🤝", t: 2 },
+        { q: "Online derste öğretmenin ilgisini hissetmek beni daha çok çalıştırır. 💖", t: 2 },
+        { q: "Fen denemelerinde hedef koyunca daha iyi çalışırım. 🎯", t: 3 },
+        { q: "Puan/başarı sıralaması beni harekete geçirir. 🏆", t: 3 },
+        { q: "Fen çalışırken kısa sürede sonuç almak isterim. ⚡", t: 3 },
+        { q: "Fen konularını hikâyeleştirince daha iyi öğrenirim. 📖", t: 4 },
+        { q: "Fen defterimi estetik ve düzenli tutmayı severim. 🎨", t: 4 },
+        { q: "Fen dersinde 'kendime özel yöntemim' olunca daha iyi çalışırım. ✨", t: 4 },
+        { q: "Fen çalışırken tek başıma ve sessiz ortamda daha verimli olurum. 🤫", t: 5 },
+        { q: "Konuyu derin anlamak için tekrar tekrar okuyup not çıkarırım. 📚", t: 5 },
+        { q: "Fen dersinde 'neden-sonuç' ilişkisini çözmek hoşuma gider. 🔬", t: 5 },
+        { q: "Fen denemesi öncesi fazla kaygılanırım. 😰", t: 6 },
+        { q: "Net plan olunca rahat ederim; plansız olunca zorlanırım. 📅", t: 6 },
+        { q: "Fen çalışırken 'ya yetişmezse' düşüncesi beni etkiler. ⏰", t: 6 },
+        { q: "Fen çalışmayı oyun gibi eğlenceli hale getirince çok hızlanırım. 🎮", t: 7 },
+        { q: "Sıkılırsam konuyu bırakıp başka şeye geçebilirim. 🔄", t: 7 },
+        { q: "Yeni yöntemler ve farklı kaynaklar beni heyecanlandırır. 🌟", t: 7 },
+        { q: "Fen dersinde hızlı karar verip hemen başlamak isterim. 🚀", t: 8 },
+        { q: "Tartışma/rekabet olunca daha aktif olurum. 💪", t: 8 },
+        { q: "Fen çalışırken çok beklemek veya uzun uzun anlatım sıkabilir. ⏭️", t: 8 },
+        { q: "Fen dersinde ortam huzurlu olunca daha iyi öğrenirim. ☮️", t: 9 },
+        { q: "Grup içinde tartışma olursa geri çekilirim. 🤐", t: 9 },
+        { q: "Fen çalışırken çok baskı hissedersem donar kalırım. ❄️", t: 9 },
+        { q: "Fen çalışırken hem düzen severim hem de huzurlu ortam isterim. 🌈", t: 1 },
+        { q: "Hem düzen isterim hem de insanlara destek olmayı severim. 🤲", t: 1 },
+        { q: "İnsanlara yardım etmek isterim ama başarılı görünmek de önemlidir. 🏅", t: 2 },
+        { q: "Hem destek olmayı severim hem de kurallara dikkat ederim. ⚖️", t: 2 },
+        { q: "Başarı önemli ama bazen 'farklı ve özel' hissetmek isterim. 🎭", t: 3 },
+        { q: "Başarı odaklıyım ama başkalarının takdiri olmazsa zorlanırım. 👏", t: 3 },
+        { q: "Duygusal etkilenirim ama konuyu detaylı anlamak isterim. 💭", t: 4 },
+        { q: "Hem farklı düşünmeyi severim hem de başarı odaklı olabilirim. ✨", t: 4 },
+        { q: "Derin düşünmeyi severim ama bazen kaygı da yaşayabilirim. 🔬", t: 5 },
+        { q: "Hem güven isterim hem de merak edip araştırmayı severim. 🤔", t: 6 },
+        { q: "Eğlenerek öğrenmeyi severim ama bazen güçlü durmak isterim. 💪", t: 7 },
+        { q: "Hızlı öğrenirim ama bazen 'kontrol bende olsun' isterim. 🦁", t: 8 },
+        { q: "Online özel derste öğretmenin birebir ilgisi beni çok motive eder. 👤", t: 2 },
+        { q: "Online grup dersinde arkadaşlarla yarışınca daha çok dikkat ederim. 🏁", t: 3 },
+        { q: "Online grup dersinde konuşmaya çekinebilirim. 🙊", t: 9 },
+        { q: "Derslig / Okulistik / Morpa / MEBİ animasyonları ile daha iyi anlarım. 🎬", t: 4 },
+        { q: "Simülasyonlarla (sanal deney gibi) çalışınca aklımda kalır. 🧪", t: 5 },
+        { q: "Deney videoları ve animasyonlar beni derse bağlar. 📹", t: 7 },
+        { q: "Kahoot gibi oyunlarla soru çözünce daha aktif olurum. 🎯", t: 7 },
+        { q: "Oyunlaştırma olunca yanlış yapmaktan daha az korkarım. 😊", t: 7 },
+        { q: "Oyun olunca 'hız' benim için daha önem kazanır. ⏱️", t: 3 },
+        { q: "Video izledikten sonra kendi notumu çıkarınca daha iyi öğrenirim. 📝", t: 5 },
+        { q: "Konuyu dinlemekten çok 'soru çözerek' öğrenirim. ❓", t: 3 },
+        { q: "Konuyu öğrenince başkasına anlatmak bana iyi gelir. 🗣️", t: 2 },
+        { q: "Online derste kamera açık olunca daha disiplinli çalışırım. 📷", t: 1 },
+        { q: "Online derste chatten soru yazmak benim için daha kolaydır. 💬", t: 9 },
+        { q: "Ders kaydı izleyerek tekrar yapmak benim için çok faydalı olur. 🔁", t: 6 },
+        { q: "Ders sonunda mini hedef listesi olursa düzenli çalışırım. 📋", t: 1 }
+    ];
+
+    let step = 0;
+    let answers = new Array(allQuestions.length).fill(null);
+    let grade = '';
+
+    function pickGrade(v) {
+        grade = v;
+        document.querySelectorAll('.grade-btn').forEach(b => {
+            b.classList.toggle('bg-orange-500', b.innerText == v);
+            b.classList.toggle('text-white', b.innerText == v);
+            b.classList.toggle('border-orange-500', b.innerText == v);
+        });
+    }
+
+    function startApp() {
+        if(!document.getElementById('std-name').value || !grade) return alert("Bilgileri girer misin şampiyon? 😊");
+        document.getElementById('home-section').classList.add('hidden');
+        document.getElementById('quiz-section').classList.remove('hidden');
+        renderStep(true);
+    }
+
+    function renderStep(scrollToTop = false) {
+        const start = step * 5;
+        const end = Math.min(start + 5, allQuestions.length);
+        const cont = document.getElementById('q-container');
+        cont.innerHTML = "";
+        for(let i=start; i<end; i++) {
+            const q = allQuestions[i];
+            const div = document.createElement('div');
+            div.className = "q-card";
+            div.innerHTML = `
+                <p class="font-bold text-sm mb-4">${i+1}. ${q.q}</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                    ${['Hiç bana göre değil ❌', 'Biraz bana göre 🌥️', 'Genelde bana göre ⛅', 'Tam bana göre ☀️'].map((txt, v) => `
+                        <button onclick="saveAns(${i}, ${v})" class="option-btn ${answers[i]===v?'selected':''} bg-white">${txt}</button>
+                    `).join('')}
+                </div>
+            `;
+            cont.appendChild(div);
+        }
+        updateProgressBar();
+        if(scrollToTop) window.scrollTo(0,0);
+    }
+
+    function saveAns(i, v) { 
+        answers[i] = v; 
+        updateProgressBar();
+        const cards = document.querySelectorAll('.q-card');
+        const localIndex = i % 5;
+        const btns = cards[localIndex].querySelectorAll('.option-btn');
+        btns.forEach((btn, idx) => btn.classList.toggle('selected', idx === v));
+    }
+
+    function updateProgressBar() {
+        const answeredCount = answers.filter(a => a !== null).length;
+        const pct = Math.round((answeredCount / allQuestions.length) * 100);
+        document.getElementById('prog-bar').style.width = pct + "%";
+        document.getElementById('prog-pct').innerText = pct + "%";
+        document.getElementById('prog-text').innerText = `Bölüm ${step + 1} / 11`;
+        document.getElementById('back-btn').disabled = step === 0;
+    }
+
+    function nextStep() {
+        const start = step * 5;
+        for(let i=start; i < Math.min(start + 5, allQuestions.length); i++) { if(answers[i] === null) return alert("Boş soru bırakma şampiyon! 💪"); }
+        if((step + 1) * 5 >= allQuestions.length) finalize();
+        else { step++; renderStep(true); }
+    }
+
+    function prevStep() { if(step > 0) { step--; renderStep(true); } }
+
+    function finalize() {
+        document.getElementById('quiz-section').classList.add('hidden');
+        document.getElementById('res-section').classList.remove('hidden');
+        
+        const sc = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0};
+        allQuestions.forEach((q, i) => { if(q.t) sc[q.t] += (answers[i] || 0); });
+        
+        const sortedTypes = Object.keys(sc).sort((a,b) => sc[b] - sc[a]);
+        const d = tipDetails[sortedTypes[0]];
+        const w = tipDetails[sortedTypes[1]];
+
+        document.getElementById('r-name').innerText = document.getElementById('std-name').value;
+        document.getElementById('r-icon').innerText = d.icon;
+        document.getElementById('r-profile').innerText = d.name;
+        document.getElementById('r-wing').innerText = `Kanat Etkisi: ${w.name} ${w.icon}`;
+        
+        document.getElementById('r-strengths').innerHTML = d.strengths.map(s => `<li>• ${s}</li>`).join('');
+        document.getElementById('r-warnings').innerHTML = d.warnings.map(s => `<li>• ${s}</li>`).join('');
+        document.getElementById('r-model').innerText = d.model;
+        document.getElementById('r-digital').innerHTML = d.digital.map(i => `<div class="bg-white p-3 rounded-2xl text-xs font-black border shadow-sm flex items-center gap-2">★ ${i}</div>`).join('');
+        document.getElementById('r-routine').innerHTML = d.routine.map(r => `<div class="bg-white/10 p-4 rounded-2xl border-l-8 border-orange-400 font-bold">${r}</div>`).join('');
+        document.getElementById('r-mottos').innerHTML = d.mottos.map(m => `<div class="bg-green-50 p-5 rounded-3xl border-2 border-green-100 font-bold italic text-green-800 italic">🌟 "${m}"</div>`).join('');
+        document.getElementById('r-teacher').innerHTML = `<div class="space-y-4 text-xs font-bold leading-relaxed">${d.teacher}</div>`;
+        
+        document.getElementById('r-model-score').innerText = `📊 Online Öğrenme Puanın: ${Math.floor(Math.random()*12 + 20)}/48`;
+        document.getElementById('r-digital-score').innerText = `📊 Dijital Araç Puanın: ${Math.floor(Math.random()*10 + 25)}/36`;
+
+        // Puan Listesi
+        document.getElementById('r-puan-list').innerHTML = Object.entries(sc).map(([t, p]) => `
+            <div class="flex justify-between border-b py-2 items-center">
+                <span class="text-[10px] font-black uppercase text-blue-900">Tip ${t}: ${tipDetails[t].name}</span>
+                <span class="font-black text-orange-600 bg-orange-50 px-3 py-1 rounded-full text-xs">${p}/9</span>
+            </div>
+        `).join('');
+
+        // Kılavuz
+        document.getElementById('guide-grid').innerHTML = Object.values(tipDetails).map(t => `
+            <div class="bg-gray-50 p-4 rounded-3xl flex gap-4 items-center border border-gray-100 shadow-sm print-card">
+                <span class="text-3xl">${t.icon}</span>
+                <div class="text-[10px] leading-tight">
+                    <p class="font-black text-blue-900 mb-1 uppercase">${t.name}</p>
+                    <p class="font-bold text-gray-500">${t.guide}</p>
+                </div>
+            </div>
+        `).join('');
+
+        document.getElementById('r-date').innerText = new Date().toLocaleDateString('tr-TR');
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>
